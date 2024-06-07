@@ -1,0 +1,42 @@
+<div class="main-container" id="container">
+    <div id="binInfo" class="app-card">
+        <div class="right-center app-card-toolbar">
+            <div class="left-center app-card-title">bin-file</div>
+            <button mat-button (click)="selBinFile()" [disabled]="serial.wrBinFlag">
+                <mat-icon>file_download</mat-icon>
+                Read
+            </button>
+            <button mat-button (click)="serial.writeBin()" [disabled]="serial.getBinWrStatus()">
+                <mat-icon>file_upload</mat-icon>
+                Write
+            </button>
+        </div>
+        <div class="info-msg left-center">
+            <span style="color: red">{{ binPath }}</span> ({{serial.binProgress.toFixed(0)}} %)
+        </div>
+        <div id="progress-bar">
+            <mat-progress-bar mode="determinate" [value]="serial.binProgress">
+            </mat-progress-bar>
+        </div>
+    </div>
+    <div id="logs" class="app-card">
+        <div class="right-center app-card-toolbar">
+            <div class="left-center app-card-title">logs</div>
+            <button mat-button (click)="clearLogs()">
+                <mat-icon>delete_forever</mat-icon>
+                Clear
+            </button>
+            <mat-checkbox id="cbScroll"
+                          [ngModel]="scrollFlag"
+                          (ngModelChange)="autoScrollChange($event)"
+                          color="primary">
+                autoscroll
+            </mat-checkbox>
+        </div>
+        <div id="logList">
+            <div *ngFor="let msg of logs" class="log-msg left-center" [style.color]="msg.color">
+                {{ msg.text }}
+            </div>
+        </div>
+    </div>
+</div>
